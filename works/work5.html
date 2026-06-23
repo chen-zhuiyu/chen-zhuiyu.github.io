@@ -1,0 +1,531 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈坠玉作品集</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#111111',
+                        secondary: '#333333',
+                        accent: '#0066ff',
+                        light: '#f5f5f5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance {
+                text-wrap: balance;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .transition-transform {
+                transition-property: transform;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+            .hover-scale {
+                @apply hover:scale-105 transition-transform duration-300;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* 图片查看器样式 */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active {
+            display: flex;
+        }
+        
+        .image-viewer img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .image-viewer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* 淡入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-primary font-sans">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex ml-auto space-x-8">
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+            <div class="container mx-auto px-4 py-4">
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-16 pb-16">
+        <!-- 作品标题和简介 -->
+        <section class="pt-16 pb-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">VisiClean可视化除螨仪智能家电</h1>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">社会创新</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+                    </div>
+                    <p class="text-gray-600 text-lg mb-8">
+                        "让机器拥有数字眼睛"——以灯光可视化引导、智能交互与微尘感知为核心，将传统枯燥的除螨过程转化为趣味化的清洁体验，让用户实时感知清洁效果，在使用中获得清晰反馈与满满成就感。
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 主要图片展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/除螨仪1.jpg')">
+                        <img src="../images/除螨仪1.jpg" alt="VisiClean可视化除螨仪" class="w-full h-auto rounded-lg" style="object-fit: contain; max-height: 600px;">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300">
+                            <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 hover:opacity-100">
+                                <i class="fa fa-search-plus mr-2"></i>查看大图
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目详情 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- 左侧：项目概述 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                VisiClean 是一款面向现代家居生活的智能化可视化除螨仪，核心理念是通过"灯光可视化引导 + 智能交互 + 微尘感知"解决传统除螨仪"盲区清洁、缺乏反馈、操作繁琐"的痛点。机身采用流线型人体工学设计，提供天空蓝与樱花粉两种配色，搭载中央 OLED 显示屏与可变色 LED 灯带，实现清洁过程的实时可视化。
+                            </p>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                产品强调"人机共创"——用户不仅是使用者，更是清洁过程的监督者与参与者。通过可视化尘杯、微尘传感反馈与配套 APP（VisiClean Connect），将不可见的除螨过程转化为直观的感官体验，并引入游戏化机制与成就系统，打造轻松、高效、富有参与感的居家清洁体验。
+                            </p>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                目标用户为 25-40 岁都市女性，注重生活品质与健康。调研显示：68% 的用户因宝宝过敏问题产生购买动机，71% 的用户期望通过产品提升居家幸福感。VisiClean 正是为这群"精致生活、自在享受"的用户而设计。
+                            </p>
+                            
+                            <h3 class="text-xl font-semibold mb-4 mt-8">核心功能</h3>
+                            <div class="space-y-2 text-gray-600">
+                                <p>• UV-C 紫外线杀菌灯，深度杀灭螨虫及细菌</p>
+                                <p>• 微尘传感器 + OLED 屏幕，实时反馈空气质量与清洁进度</p>
+                                <p>• 多层 HEPA 滤网 + 静电集尘板，过滤效率达 99.97%</p>
+                                <p>• 前置 / 后置 LED 照明灯，确保床褥缝隙无死角</p>
+                                <p>• 配套 VisiClean Connect APP，支持远程监控与数据可视化</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">SolidWorks</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Keyshot</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Arduino</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧：设计过程 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+                            
+                            <div class="space-y-8">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">用户调研与竞品分析</h3>
+                                    <p class="text-gray-600">
+                                        对 200+ 目标用户进行深度访谈与问卷调研，总结出三大核心痛点：清洁效果不可见、操作复杂难上手、重复劳动无成就感。竞品对比分析显示，VisiClean 在可视化尘杯、实时粉尘反馈与光照引导系统方面具有显著差异化优势。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">概念草图与形态推演</h3>
+                                    <p class="text-gray-600">
+                                        历经 12 轮手绘草图迭代，探索不同手柄弧度、屏幕位置与灯光布局方案。关键转折点为确定"中央圆形 OLED 屏 + 两侧 LED 灯带"的最优组合，平衡了信息呈现与握持手感。通过硅胶人手模型模拟握持测试，将手柄末端加重平衡前端吸头重量。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">硬件与交互原型</h3>
+                                    <p class="text-gray-600">
+                                        使用 Arduino 搭建微尘传感与灯光反馈原型，验证 PM2.5/PM10 检测精度与 LED 灯带颜色映射逻辑。同步设计 VisiClean Connect APP 界面，包括实时仪表盘、清洁热力图、游戏化挑战赛与成就勋章系统，实现软硬件协同体验闭环。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">样机制作与用户测试</h3>
+                                    <p class="text-gray-600">
+                                        完成高保真样机制作，在 3 个城市开展为期一个月的用户体验测试，满意度达 92%。用户反馈"第一次觉得打扫这么有成就感"、"孩子过敏症状明显缓解"。根据测试数据优化续航、防水等级与 APP 交互流程。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <!-- 素材展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 gap-8">
+                        <div class="fade-in">
+                            <img src="../images/除螨仪5.png" alt="VisiClean 功能介绍与草图" class="w-full h-auto rounded-lg shadow-sm" style="object-fit: contain; max-height: 700px;" onclick="openImageViewer('../images/除螨仪5.png')">
+                        </div>
+                        <div class="fade-in" style="transition-delay: 0.1s;">
+                            <img src="../images/除螨仪4.jpg" alt="VisiClean 产品展示" class="w-full h-auto rounded-lg shadow-sm" style="object-fit: contain; max-height: 700px;" onclick="openImageViewer('../images/除螨仪4.jpg')">
+                        </div>
+                        <div class="fade-in" style="transition-delay: 0.2s;">
+                            <img src="../images/除螨仪2.jpg" alt="VisiClean 设计详情" class="w-full h-auto" style="width: 100%; max-width: 100%;" onclick="openImageViewer('../images/除螨仪2.jpg')">
+                        </div>
+                        <div class="fade-in" style="transition-delay: 0.3s;">
+                            <img src="../images/除螨仪3.jpg" alt="VisiClean 效果展示" class="w-full h-auto" style="width: 100%; max-width: 100%;" onclick="openImageViewer('../images/除螨仪3.jpg')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目成果 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 成果1 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-trophy text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">设计认可</h3>
+                            <p class="text-gray-600">
+                                荣获第十届"米兰设计周-中国高校设计学科师生优秀作品展"非命题赛场省部级级三等奖、"华夏奖"文化艺术设计大赛铜奖、2026年国际大学生数字艺术设计竞赛新锐奖。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果2 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-heart text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">设计洞察</h3>
+                            <p class="text-gray-600">
+                                基于50+用户深度访谈，提炼"效果不可见、操作无反馈、机身笨重"三大痛点，确立灯光引导、微尘感知、轻量化三大设计机会点。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果3 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-rocket text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">CMF与工程创新</h3>
+                            <p class="text-gray-600">
+                                抗指纹哑光喷涂机身搭配软胶包覆把手，电机后置平衡重心，推行阻力降低30%；集成式主控模块简化内部走线，提升量产装配效率。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 相关项目 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- 相关项目1 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/渲染.268.png" alt="模块化康复矫形护具" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">模块化康复矫形护具</h3>
+                            <p class="text-gray-600 text-sm mb-1">覆盖康复全周期的模块化可调式系统，打通医院与居家场景。</p>
+                            <p class="text-gray-400 text-xs mb-3">医疗健康 / 数字化服务 / 产品设计</p>
+                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目2 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/机器人.jpg" alt="全地形救援探索机器人" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">全地形救援探索机器人</h3>
+                            <p class="text-gray-600 text-sm mb-1">轮足复合式越障系统，融合四足灵活与轮式高效，适应灾后废墟。</p>
+                            <p class="text-gray-400 text-xs mb-3">产品设计</p>
+                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目3 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/露营灯.png" alt="多功能AI露营灯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">多功能AI露营灯</h3>
+                            <p class="text-gray-600 text-sm mb-1">集照明、驱蚊、AI值守于一体，定义年轻群体"轻量化露营"新方式。</p>
+                            <p class="text-gray-400 text-xs mb-3">产品设计</p>
+                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 返回作品列表按钮 -->
+                <div class="text-center mt-12">
+                    <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
+                        返回全部作品
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-12 bg-black text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-behance text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-dribbble text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片查看器 -->
+    <div id="image-viewer" class="image-viewer">
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+        <img id="viewer-image" src="" alt="查看大图">
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-opacity-95');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('bg-opacity-95');
+                }
+            });
+            
+            // 淡入动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+            
+            // 初始检查
+            fadeInOnScroll();
+            
+            // 滚动时检查
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // 使用 GSAP 添加更复杂的动画
+            if (typeof gsap !== 'undefined') {
+                // 标题和简介动画
+                gsap.from('section:first-of-type h1', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    delay: 0.2
+                });
+                
+                gsap.from('section:first-of-type .flex', {
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    delay: 0.5
+                });
+                
+                gsap.from('section:first-of-type p', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 1,
+                    delay: 0.8
+                });
+                
+                // 主要图片动画
+                gsap.from('section:nth-of-type(2) img', {
+                    opacity: 0,
+                    scale: 0.9,
+                    duration: 1,
+                    delay: 1
+                });
+            }
+        });
+        
+        // 图片查看器功能
+        function openImageViewer(imageUrl) {
+            const viewer = document.getElementById('image-viewer');
+            const viewerImage = document.getElementById('viewer-image');
+            
+            viewerImage.src = imageUrl;
+            viewer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+        
+        function closeImageViewer() {
+            const viewer = document.getElementById('image-viewer');
+            viewer.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        }
+        
+        // 点击图片查看器背景关闭
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageViewer();
+            }
+        });
+        
+        // 按ESC键关闭图片查看器
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageViewer();
+            }
+        });
+    </script>
+
+
+</body></html>
