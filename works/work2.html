@@ -1,0 +1,541 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈坠玉作品集</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#111111',
+                        secondary: '#333333',
+                        accent: '#0066ff',
+                        light: '#f5f5f5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance {
+                text-wrap: balance;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .transition-transform {
+                transition-property: transform;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+            .hover-scale {
+                @apply hover:scale-105 transition-transform duration-300;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* 图片查看器样式 */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active {
+            display: flex;
+        }
+        
+        .image-viewer img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .image-viewer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* 淡入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-primary font-sans">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex ml-auto space-x-8">
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+            <div class="container mx-auto px-4 py-4">
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-16 pb-16">
+        <!-- 作品标题和简介 -->
+        <section class="pt-16 pb-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">面向康复人群的模块化可调式康复矫形护具设计</h1>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">康复护具</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+                    </div>
+                    <p class="text-gray-600 text-lg mb-8">
+                        ModuPhase —— 面向肢体康复人群的模块化可调式康复矫形器具设计。本产品面向膝踝关节术后人群，采用轻量化和易操作性材料，具有可调节的部件支撑底座，配合进气式材料提供舒适体验，满足足部与脚踝的支撑，实现即时防护和逐步恢复。
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 主要图片展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/渲染.83.jpg')">
+                            <img src="../images/渲染.83.jpg" alt="渲染图83" class="w-full h-auto rounded-lg object-contain">
+                        </div>
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/渲染.84.jpg')">
+                            <img src="../images/渲染.84.jpg" alt="渲染图84" class="w-full h-auto rounded-lg object-contain">
+                        </div>
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/渲染.85.jpg')">
+                            <img src="../images/渲染.85.jpg" alt="渲染图85" class="w-full h-auto rounded-lg object-contain">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目详情 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- 左侧：项目概述 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                ModuPhase 是一款面向肢体康复人群的模块化可调式康复矫形器具，主要针对膝踝关节术后人群设计。产品核心理念是通过模块化机械结构实现个性化适配，配合人机工程学设计，为不同康复阶段的用户提供精准的支撑与防护。
+                            </p>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                设计过程中深入开展了前期调研与服务蓝图规划，结合CMF分析确定轻量化、透气性优异的材料方案。产品采用可调节的部件支撑底座与进气式材料，兼顾即时防护与逐步恢复的双重需求，在功能性与舒适性之间取得平衡。
+                            </p>
+                            
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">SolidWorks</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">KeyShot</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧：设计过程 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+                            
+                            <div class="space-y-8">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">前期调研与需求分析</h3>
+                                    <p class="text-gray-600">
+                                        针对膝踝关节术后康复人群开展用户调研，分析现有矫形护具的使用痛点，梳理服务蓝图，明确产品功能需求与设计方向。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">模块化机械结构设计</h3>
+                                    <p class="text-gray-600">
+                                        基于人机工程学原理，设计可调节的模块化部件支撑系统，通过三视图与爆炸图细化结构方案，确保不同体型和康复阶段的用户均可获得适配。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">CMF分析与材料选型</h3>
+                                    <p class="text-gray-600">
+                                        通过CMF分析确定产品色彩、材质与表面处理方案，选用轻量化、透气性优异的进气式材料，兼顾视觉品质感与长期佩戴的舒适性。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">APP界面与交互设计</h3>
+                                    <p class="text-gray-600">
+                                        配套开发康复护具移动应用，覆盖使用流程图与工作流规划，通过后期评估与改进迭代优化，实现产品与数字体验的完整闭环。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <!-- 交互页面展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-8">APP界面设计</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/app1.jpg')">
+                            <img src="../images/app1.jpg" alt="交互页面1" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/2.png')">
+                            <img src="../images/2.png" alt="交互页面2" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/3.png')">
+                            <img src="../images/3.png" alt="交互页面3" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                        <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/4.png')">
+                            <img src="../images/4.png" alt="交互页面4" class="w-full h-auto rounded-lg shadow-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 展板展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/展板.jpg')">
+                        <img src="../images/展板.jpg" alt="ModuPhase 设计展板" class="w-full h-auto rounded-lg shadow-sm">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目成果 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 成果1 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-cogs text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">模块化结构系统</h3>
+                            <p class="text-gray-600">
+                                完成可调节部件支撑底座设计，通过三视图与爆炸图验证结构合理性，支持不同体型和康复阶段的个性化适配。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果2 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-mobile text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">配套移动应用</h3>
+                            <p class="text-gray-600">
+                                完成康复护具APP界面设计，覆盖使用流程图与工作流规划，实现从硬件到数字体验的完整闭环。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果3 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-check-circle text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">人机工程验证</h3>
+                            <p class="text-gray-600">
+                                基于人机工程学原理完成设计评估，CMF方案兼顾轻量化与透气性，满足即时防护与逐步恢复的双重目标。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 相关项目 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- 相关项目1 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/聋哑1.png" alt="无障碍通讯终端设计" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">无障碍通讯终端设计</h3>
+                            <p class="text-gray-600 text-sm mb-3">为全球超2亿听障人士打造的多模态沟通解决方案。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs">软硬整合</span>
+                                <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs">人文关怀</span>
+                                <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs">产品设计</span>
+                            </div>
+                            <a href="work1.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目2 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/除螨仪.jpg" alt="可视化智能除螨仪" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">可视化智能除螨仪</h3>
+                            <p class="text-gray-600 text-sm mb-3">以灯光交互与微尘感知重塑清洁体验，让除尘效果"肉眼可见"。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs">产品设计</span>
+                            </div>
+                            <a href="work5.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目3 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/无人机.jpg" alt="全域模块化救援无人机" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">全域模块化救援无人机</h3>
+                            <p class="text-gray-600 text-sm mb-3">一机多模，快速响应，集侦察、预警、物资投送于一体的空中力量。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded-full text-xs">产品设计</span>
+                            </div>
+                            <a href="work4.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 返回作品列表按钮 -->
+                <div class="text-center mt-12">
+                    <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
+                        返回全部作品
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-12 bg-black text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-behance text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-dribbble text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片查看器 -->
+    <div id="image-viewer" class="image-viewer">
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+        <img id="viewer-image" src="" alt="查看大图">
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-opacity-95');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('bg-opacity-95');
+                }
+            });
+            
+            // 淡入动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+            
+            // 初始检查
+            fadeInOnScroll();
+            
+            // 滚动时检查
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // 使用 GSAP 添加更复杂的动画
+            if (typeof gsap !== 'undefined') {
+                // 标题和简介动画
+                gsap.from('section:first-of-type h1', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    delay: 0.2
+                });
+                
+                gsap.from('section:first-of-type .flex', {
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    delay: 0.5
+                });
+                
+                gsap.from('section:first-of-type p', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 1,
+                    delay: 0.8
+                });
+                
+                // 主要图片动画
+                gsap.from('section:nth-of-type(2) img', {
+                    opacity: 0,
+                    scale: 0.9,
+                    duration: 1,
+                    delay: 1
+                });
+            }
+        });
+        
+        // 图片查看器功能
+        function openImageViewer(imageUrl) {
+            const viewer = document.getElementById('image-viewer');
+            const viewerImage = document.getElementById('viewer-image');
+            
+            viewerImage.src = imageUrl;
+            viewer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+        
+        function closeImageViewer() {
+            const viewer = document.getElementById('image-viewer');
+            viewer.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        }
+        
+        // 点击图片查看器背景关闭
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageViewer();
+            }
+        });
+        
+        // 按ESC键关闭图片查看器
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageViewer();
+            }
+        });
+    </script>
+
+
+</body></html>
