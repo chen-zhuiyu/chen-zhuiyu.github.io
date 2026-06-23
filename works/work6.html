@@ -119,7 +119,40 @@
             height: auto;
             display: block;
         }
-    </style>
+    
+@media (max-width: 768px) {
+  /* 全局 */
+  body { font-size: 15px; padding: 12px; }
+  
+  /* 首页头像+个人信息区垂直排列 */
+  .profile-section { flex-direction: column; text-align: center; }
+  .profile-section img { width: 120px; height: 120px; }
+  
+  /* 作品网格单列 */
+  .works-grid { grid-template-columns: 1fr; }
+  
+  /* 侧边栏隐藏 */
+  .sidebar { display: none; }
+  
+  /* 详情页单列布局 */
+  .work-detail { flex-direction: column; }
+  .work-detail .hero-image { width: 100%; }
+  
+  /* 素材展示区图片全宽 */
+  .material-gallery img { width: 100%; }
+  
+  /* 项目成果卡片单列 */
+  .achievement-cards { grid-template-columns: 1fr; }
+  
+  /* 相关项目单列 */
+  .related-projects { grid-template-columns: 1fr; }
+  
+  /* 导航汉堡菜单 */
+  .nav-links { display: none; }
+  .mobile-nav-toggle { display: block; }
+}
+
+</style>
 </head>
 <body class="bg-white text-primary font-sans">
     <!-- 导航栏 -->
