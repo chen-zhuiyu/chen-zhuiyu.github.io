@@ -1,0 +1,579 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陈坠玉作品集</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#111111',
+                        secondary: '#333333',
+                        accent: '#0066ff',
+                        light: '#f5f5f5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance {
+                text-wrap: balance;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .transition-transform {
+                transition-property: transform;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+            .hover-scale {
+                @apply hover:scale-105 transition-transform duration-300;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* 图片查看器样式 */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-viewer.active {
+            display: flex;
+        }
+        
+        .image-viewer img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .image-viewer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* 淡入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-primary font-sans">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex ml-auto space-x-8">
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+            <div class="container mx-auto px-4 py-4">
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="pt-16 pb-16">
+        <!-- 作品标题和简介 -->
+        <section class="pt-16 pb-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">Kiddo³ 儿童 3D 食品打印机</h1>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">社会创新</span>
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+                    </div>
+                    <p class="text-gray-600 text-lg mb-8">
+                        面向6~12岁儿童的STEM教育型智能食品打印机。以"Imagination, Within Reach"为核心理念，将科学、技术、工程、艺术与数学融入趣味食物造物，让孩子在"玩食物魔法"的过程中探索科技、激发创造力。
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 主要图片展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机22.png')">
+                        <img src="../images/打印机22.png" alt="Kiddo³ 儿童3D食品打印机" class="w-full h-auto rounded-lg" style="object-fit: contain;">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300">
+                            <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 hover:opacity-100">
+                                <i class="fa fa-search-plus mr-2"></i>查看大图
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目详情 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- 左侧：项目概述 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Kiddo³ 是一款面向6~12岁儿童及其家庭的STEM教育型智能食品打印机。产品以恐龙IP形象为视觉核心，将3D打印技术与可食用食材结合，让孩子通过"选模—备料—打印—取件"的完整流程，亲手创造出可食用的饼干、蛋糕、巧克力等创意造型食物。
+                            </p>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                设计挑战在于兼顾儿童安全与操作趣味性：食品级材料、低温打印、高速安全舱门构筑安全防线；恐龙主题可拆卸顶盖与模块化装饰面板激发探索欲；配套APP支持造型选择与自定义模型上传，实现"从虚拟模型到真实食物"的完整闭环。
+                            </p>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                产品采用天然实木与仿石纹再生塑料的CMF方案，以温暖奶油黄为主色调，搭配薄荷绿、粉红等马卡龙色系，营造童趣而不失高级感的视觉体验。通过亲子共玩与课堂协作等多元使用场景，Kiddo³ 正重新定义"厨房玩具"的教育价值。
+                            </p>
+                            
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">SolidWorks</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Keyshot</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧：设计过程 -->
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+                            
+                            <div class="space-y-8">
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">用户研究与洞察</h3>
+                                    <p class="text-gray-600">
+                                        以8岁儿童林小屿为核心用户画像，通过观察其放学后的手工、阅读、亲子互动等活动模式，提炼出"看得懂、摸得着、有成就感"三大核心需求。调研发现：现有DIY玩具互动性弱、缺乏真实创作成果，家长普遍希望减少屏幕时间、增加动手实践。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">创意演变与形态推敲</h3>
+                                    <p class="text-gray-600">
+                                        从几何体块出发，逐步融入拟人化元素，最终确立"恐龙主题"IP形象。通过多轮草图迭代与手板验证，确定蘑菇状机身+透明舱门+模块化组件的整体形态。CMF方案选定天然实木骨架+仿石纹底座+彩色涂装装饰，兼顾安全性、亲和力与辨识度。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">结构与交互设计</h3>
+                                    <p class="text-gray-600">
+                                        爆炸图阶段逐层拆解为：恐龙主题顶盖、食品级3D打印喷头、EM·ONE核心主板、高速安全舱门、交互控制区、模块化装饰侧面板、可拆洗食物料仓七大部分。交互层设计手动旋钮+触控屏幕+APP三通道并行，确保不同年龄段儿童均可顺畅操作。
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-2">UI设计与用户测试</h3>
+                                    <p class="text-gray-600">
+                                        配套APP围绕"我的作品—食材库—教程中心"三级架构展开，主色调延续奶油黄与马卡龙色系，图标圆润、字体清晰。构建交互原型后邀请家长与儿童参与测试，根据反馈优化了打印进度动画、安全提示弹窗与配方推荐算法。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 素材展示区 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto space-y-8">
+                    <!-- 打印机11.png -->
+                    <div class="fade-in">
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机11.png')">
+                            <img src="../images/打印机11.png" alt="设计素材1" class="w-full h-auto rounded-lg shadow-sm">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 rounded-lg">
+                                <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-search-plus mr-2"></i>查看大图
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 打印机33.png -->
+                    <div class="fade-in">
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机33.png')">
+                            <img src="../images/打印机33.png" alt="设计素材2" class="w-full h-auto rounded-lg shadow-sm">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 rounded-lg">
+                                <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-search-plus mr-2"></i>查看大图
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 打印机44.png -->
+                    <div class="fade-in">
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机44.png')">
+                            <img src="../images/打印机44.png" alt="设计素材3" class="w-full h-auto rounded-lg shadow-sm">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 rounded-lg">
+                                <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-search-plus mr-2"></i>查看大图
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 打印机66.png -->
+                    <div class="fade-in">
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机66.png')">
+                            <img src="../images/打印机66.png" alt="设计素材4" class="w-full h-auto rounded-lg shadow-sm">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 rounded-lg">
+                                <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-search-plus mr-2"></i>查看大图
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 打印机5.jpg 全宽展示 -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <div class="fade-in">
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/打印机5.jpg')">
+                            <img src="../images/打印机5.jpg" alt="Kiddo³ 产品展板" style="width: 100%; height: auto;" class="rounded-lg shadow-sm">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 rounded-lg">
+                                <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md opacity-0 hover:opacity-100 transition-opacity">
+                                    <i class="fa fa-search-plus mr-2"></i>查看大图
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目成果 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 成果1 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-lightbulb-o text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">设计创新</h3>
+                            <p class="text-gray-600">
+                                以恐龙IP与模块化架构重塑儿童厨房玩具品类，将3D打印技术首次引入家庭亲子场景，实现"从虚拟模型到真实食物"的教育闭环。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果2 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-shield text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">安全体系</h3>
+                            <p class="text-gray-600">
+                                食品级打印材料、低温挤出工艺、高速安全舱门三重防护，通过结构设计与材料选型构建儿童产品的安全基线，为品类提供可复用的安全设计范式。
+                            </p>
+                        </div>
+                        
+                        <!-- 成果3 -->
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa fa-puzzle-piece text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">教育价值</h3>
+                            <p class="text-gray-600">
+                                融合STEAM教育理念，通过"选模—备料—打印—取件—清洁"五步工作流，让儿童在动手实践中理解空间结构、材料成型与工程思维，获得家长与教育者的高度认可。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 相关项目 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- 相关项目1：模块化康复矫形护具 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/渲染.268.png" alt="模块化康复矫形护具" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">模块化康复矫形护具</h3>
+                            <p class="text-gray-600 text-sm mb-3">覆盖康复全周期的模块化可调式系统，打通医院与居家场景。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-500">医疗健康</span>
+                                <span class="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-500">数字化服务</span>
+                                <span class="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-500">产品设计</span>
+                            </div>
+                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目2：全地形救援探索机器人 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/机器人.jpg" alt="全地形救援探索机器人" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">全地形救援探索机器人</h3>
+                            <p class="text-gray-600 text-sm mb-3">轮足复合式越障系统，融合四足灵活与轮式高效，适应灾后废墟。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-500">产品设计</span>
+                            </div>
+                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 相关项目3：多功能AI露营灯 -->
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+                        <div class="relative overflow-hidden">
+                            <img src="../images/露营灯.png" alt="多功能AI露营灯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-1">多功能AI露营灯</h3>
+                            <p class="text-gray-600 text-sm mb-3">集照明、驱蚊、AI值守于一体，定义年轻群体"轻量化露营"新方式。</p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-500">产品设计</span>
+                            </div>
+                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 返回作品列表按钮 -->
+                <div class="text-center mt-12">
+                    <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
+                       返回全部作品
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-12 bg-black text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-behance text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-dribbble text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片查看器 -->
+    <div id="image-viewer" class="image-viewer">
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+        <img id="viewer-image" src="" alt="查看大图">
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-opacity-95');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('bg-opacity-95');
+                }
+            });
+            
+            // 淡入动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+            
+            // 初始检查
+            fadeInOnScroll();
+            
+            // 滚动时检查
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // 使用 GSAP 添加更复杂的动画
+            if (typeof gsap !== 'undefined') {
+                // 标题和简介动画
+                gsap.from('section:first-of-type h1', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    delay: 0.2
+                });
+                
+                gsap.from('section:first-of-type .flex', {
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    delay: 0.5
+                });
+                
+                gsap.from('section:first-of-type p', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 1,
+                    delay: 0.8
+                });
+                
+                // 主要图片动画
+                gsap.from('section:nth-of-type(2) img', {
+                    opacity: 0,
+                    scale: 0.9,
+                    duration: 1,
+                    delay: 1
+                });
+            }
+        });
+        
+        // 图片查看器功能
+        function openImageViewer(imageUrl) {
+            const viewer = document.getElementById('image-viewer');
+            const viewerImage = document.getElementById('viewer-image');
+            
+            viewerImage.src = imageUrl;
+            viewer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+        
+        function closeImageViewer() {
+            const viewer = document.getElementById('image-viewer');
+            viewer.classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        }
+        
+        // 点击图片查看器背景关闭
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageViewer();
+            }
+        });
+        
+        // 按ESC键关闭图片查看器
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageViewer();
+            }
+        });
+    </script>
+
+
+</body></html>
