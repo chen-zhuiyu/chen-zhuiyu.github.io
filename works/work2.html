@@ -149,7 +149,13 @@
 </style>
 </head>
 <body class="bg-white text-primary font-sans">
-<div id="loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.3s;font-family:sans-serif;"><div style="width:40px;height:40px;border:3px solid #e0e0e0;border-top-color:#333;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;"></div><div style="color:#666;font-size:14px;">加载中...</div></div>
+<div id="loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.3s;font-family:sans-serif;">
+  <div style="color:#333;font-size:18px;margin-bottom:20px;">资源加载中</div>
+  <div style="width:240px;height:4px;background:#e0e0e0;border-radius:2px;overflow:hidden;">
+    <div id="loading-bar" style="height:100%;width:0%;background:#333;border-radius:2px;transition:width 0.2s;"></div>
+  </div>
+  <div id="loading-percent" style="color:#999;font-size:13px;margin-top:10px;">0%</div>
+</div>
     <!-- 导航栏 -->
     <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
         <div class="container mx-auto px-4 md:px-8">
@@ -573,5 +579,5 @@
     </script>
 
 
-window.addEventListener('load',function(){const o=document.getElementById('loading-overlay');if(o){o.style.opacity='0';setTimeout(function(){o.style.display='none'},300)}})
+(function(){var imgs=document.querySelectorAll('img');var total=imgs.length;var loaded=0;function update(){loaded++;var p=Math.round(loaded/total*100);document.getElementById('loading-bar').style.width=p+'%';document.getElementById('loading-percent').textContent=p+'%';if(p>=100){var o=document.getElementById('loading-overlay');o.style.opacity='0';setTimeout(function(){o.style.display='none'},400)}}if(total===0){update()}else{imgs.forEach(function(img){if(img.complete){update()}else{img.addEventListener('load',update);img.addEventListener('error',update)}})}})();
 </body></html>
