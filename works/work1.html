@@ -1,563 +1,3353 @@
 <html lang="zh-CN"><head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闄堝潬鐜変綔鍝侀泦</title>
+
+    <title>陈坠玉作品集</title>
+
     <!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Font Awesome -->
+
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- GSAP 鍔ㄧ敾搴?-->
+
+    <!-- GSAP 动画库 -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     
+
     <script>
+
         tailwind.config = {
+
             theme: {
+
                 extend: {
+
                     colors: {
+
                         primary: '#111111',
+
                         secondary: '#333333',
+
                         accent: '#0066ff',
+
                         light: '#f5f5f5',
+
                     },
+
                     fontFamily: {
+
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+
                     }
+
                 }
+
             }
+
         }
+
     </script>
+
     
+
     <style type="text/tailwindcss">
+
         @layer utilities {
+
             .text-balance {
+
                 text-wrap: balance;
+
             }
+
             .text-shadow {
+
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
             }
+
             .transition-transform {
+
                 transition-property: transform;
+
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
                 transition-duration: 300ms;
+
             }
+
             .hover-scale {
+
                 @apply hover:scale-105 transition-transform duration-300;
+
             }
+
             .card-shadow {
+
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
             }
+
             .nav-shadow {
+
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
             }
+
         }
+
     </style>
+
     
+
     <style>
-        /* 鑷畾涔夋粴鍔ㄦ潯 */
+
+        /* 自定义滚动条 */
+
         ::-webkit-scrollbar {
+
             width: 8px;
+
         }
+
         ::-webkit-scrollbar-track {
+
             background: #f1f1f1;
+
         }
+
         ::-webkit-scrollbar-thumb {
+
             background: #888;
+
             border-radius: 4px;
+
         }
+
         ::-webkit-scrollbar-thumb:hover {
+
             background: #555;
+
         }
+
         
-        /* 鍥剧墖鏌ョ湅鍣ㄦ牱寮?*/
+
+        /* 图片查看器样式 */
+
         .image-viewer {
+
             display: none;
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             width: 100%;
+
             height: 100%;
+
             background-color: rgba(0, 0, 0, 0.9);
+
             z-index: 100;
+
             justify-content: center;
+
             align-items: center;
+
         }
+
         
+
         .image-viewer.active {
+
             display: flex;
+
         }
+
         
+
         .image-viewer img {
+
             max-width: 90%;
+
             max-height: 90%;
+
             object-fit: contain;
+
         }
+
         
+
         .image-viewer-close {
+
             position: absolute;
+
             top: 20px;
+
             right: 20px;
+
             color: white;
+
             font-size: 30px;
+
             cursor: pointer;
+
         }
+
         
-        /* 娣″叆鍔ㄧ敾 */
+
+        /* 淡入动画 */
+
         .fade-in {
+
             opacity: 0;
+
             transform: translateY(20px);
+
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
         }
+
         
+
         .fade-in.active {
+
             opacity: 1;
+
             transform: translateY(0);
+
         }
+
     
+
 @media (max-width: 768px) {
-  /* 鍏ㄥ眬 */
+
+  /* 全局 */
+
   body { font-size: 15px; padding: 12px; }
+
   
-  /* 棣栭〉澶村儚+涓汉淇℃伅鍖哄瀭鐩存帓鍒?*/
+
+  /* 首页头像+个人信息区垂直排列 */
+
   .profile-section { flex-direction: column; text-align: center; }
+
   .profile-section img { width: 120px; height: 120px; }
+
   
-  /* 浣滃搧缃戞牸鍗曞垪 */
+
+  /* 作品网格单列 */
+
   .works-grid { grid-template-columns: 1fr; }
+
   
-  /* 渚ц竟鏍忛殣钘?*/
+
+  /* 侧边栏隐藏 */
+
   .sidebar { display: none; }
+
   
-  /* 璇︽儏椤靛崟鍒楀竷灞€ */
+
+  /* 详情页单列布局 */
+
   .work-detail { flex-direction: column; }
+
   .work-detail .hero-image { width: 100%; }
+
   
-  /* 绱犳潗灞曠ず鍖哄浘鐗囧叏瀹?*/
+
+  /* 素材展示区图片全宽 */
+
   .material-gallery img { width: 100%; }
+
   
-  /* 椤圭洰鎴愭灉鍗＄墖鍗曞垪 */
+
+  /* 项目成果卡片单列 */
+
   .achievement-cards { grid-template-columns: 1fr; }
+
   
-  /* 鐩稿叧椤圭洰鍗曞垪 */
+
+  /* 相关项目单列 */
+
   .related-projects { grid-template-columns: 1fr; }
+
   
-  /* 瀵艰埅姹夊牎鑿滃崟 */
+
+  /* 导航汉堡菜单 */
+
   .nav-links { display: none; }
+
   .mobile-nav-toggle { display: block; }
+
 }
 
+
+
 </style>
+
 </head>
+
 <body class="bg-white text-primary font-sans">
-    <!-- 瀵艰埅鏍?-->
+
+    <!-- 导航栏 -->
+
     <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+
         <div class="container mx-auto px-4 md:px-8">
+
             <div class="flex justify-between items-center">
-                <a href="../index.html" class="text-2xl font-bold text-primary">闄堝潬鐜?/a>
+
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+
                 
-                <!-- 妗岄潰瀵艰埅 -->
+
+                <!-- 桌面导航 -->
+
                 <div class="hidden md:flex ml-auto space-x-8">
-                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">棣栭〉</a>
-                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">浣滃搧</a>
-                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">鍏充簬</a>
-                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">鑱旂郴</a>
+
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+
                 </div>
+
                 
-                <!-- 绉诲姩绔彍鍗曟寜閽?-->
+
+                <!-- 移动端菜单按钮 -->
+
                 <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+
                     <i class="fa fa-bars text-xl"></i>
+
                 </button>
+
             </div>
+
         </div>
+
         
-        <!-- 绉诲姩绔鑸彍鍗?-->
+
+        <!-- 移动端导航菜单 -->
+
         <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+
             <div class="container mx-auto px-4 py-4">
-                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">棣栭〉</a>
-                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">浣滃搧</a>
-                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">鍏充簬</a>
-                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">鑱旂郴</a>
+
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+
             </div>
+
         </div>
+
     </nav>
 
-    <!-- 涓昏鍐呭 -->
+
+
+    <!-- 主要内容 -->
+
     <main class="pt-16 pb-16">
-        <!-- 浣滃搧鏍囬鍜岀畝浠?-->
+
+        <!-- 作品标题和简介 -->
+
         <section class="pt-16 pb-12 bg-gray-50">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
-                    <h1 class="text-3xl md:text-5xl font-bold mb-4">CLEARHEAR鏃犻殰纰嶉€氳缁堢</h1>
+
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">CLEARHEAR无障碍通讯终端</h1>
+
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">浜у搧璁捐</span>
-                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">鍚殰浜哄＋</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">听障人士</span>
+
                         <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+
                     </div>
+
                     <p class="text-gray-600 text-lg mb-8">
-                        闈㈠悜鍚殰涓庡け璇汉缇ょ殑杞婚噺鍖栭殢韬棤闅滅閫氳缁堢銆備互"鍚璇诲啓"鍥涗綅涓€浣撲负鏍稿績璁捐閫昏緫锛岃瀺鍚堟墜璇瘑鍒炕璇戙€佽闊虫枃瀛椾簰杞€佸彲瑙嗗寲瀵硅瘽涓嶴OS绱ф€ユ眰鏁戝洓澶у姛鑳斤紝鎵撶牬鏃犲０涓栫晫涓庢湁澹颁笘鐣岀殑娌熼€氶殧闃傘€?
+
+                        面向听障与失语人群的轻量化随身无障碍通讯终端。以"听说读写"四位一体为核心设计逻辑，融合手语识别翻译、语音文字互转、可视化对话与SOS紧急求救四大功能，打破无声世界与有声世界的沟通隔阂。
+
                     </p>
+
                 </div>
+
             </div>
+
         </section>
+
         
-        <!-- 涓昏鍥剧墖灞曠ず -->
+
+        <!-- 主要图片展示 -->
+
         <section class="py-12">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
-                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/鑱嬪搼1.jpg')">
-                        <img src="../images/鑱嬪搼1.jpg" alt="CLEARHEAR鏃犻殰纰嶉€氳缁堢" class="w-full h-auto rounded-lg" loading="lazy">
+
+                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/聋哑1.jpg')">
+
+                        <img src="../images/聋哑1.jpg" alt="CLEARHEAR无障碍通讯终端" class="w-full h-auto rounded-lg" loading="lazy">
+
                         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300">
+
                             <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 hover:opacity-100">
-                                <i class="fa fa-search-plus mr-2"></i>鏌ョ湅澶у浘
+
+                                <i class="fa fa-search-plus mr-2"></i>查看大图
+
                             </span>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
         
-        <!-- 椤圭洰璇︽儏 -->
+
+        <!-- 项目详情 -->
+
         <section class="py-12">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <!-- 宸︿晶锛氶」鐩杩?-->
+
+                        <!-- 左侧：项目概述 -->
+
                         <div class="fade-in">
-                            <h2 class="text-2xl font-bold mb-6">椤圭洰姒傝堪</h2>
+
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+
                             <p class="text-gray-600 mb-6 leading-relaxed">
-                                CLEARHEAR 鏄竴娆鹃潰鍚戝惉闅溿€佸け璇汉缇ゆ墦閫犵殑杞婚噺鍖栭殢韬棤闅滅閫氳缁堢銆備骇鍝侀噰鐢ㄥ皬宸у渾娑︾殑澶规墸寮忔満韬璁★紙姘存淮褰㈤箙鍗电煶閫犲瀷锛屽帤搴︿粎22mm锛岄噸閲忕害48g锛夛紝鍙す鎸佷簬琛ｉ鎴栨寕鑴栦僵鎴达紝闆嗘垚3.8鑻卞楂樻竻瑙︽帶鏄剧ず灞忋€?00涓囧儚绱犲箍瑙掓憚鍍忓ご涓庡妯℃€佷氦浜掓寜閿€?
+
+                                CLEARHEAR 是一款面向听障、失语人群打造的轻量化随身无障碍通讯终端。产品采用小巧圆润的夹扣式机身设计（水滴形鹅卵石造型，厚度仅22mm，重量约48g），可夹持于衣领或挂脖佩戴，集成3.8英寸高清触控显示屏、500万像素广角摄像头与多模态交互按键。
+
                             </p>
+
                             <p class="text-gray-600 mb-6 leading-relaxed">
-                                鏍稿績鍔熻兘娑电洊鎵嬭璇嗗埆缈昏瘧銆佽闊虫枃瀛楀弻鍚戜簰杞€佸彲瑙嗗寲瀵硅瘽鐣岄潰浠ュ強涓€閿甋OS绱ф€ユ眰鏁戙€傝澶囨惌杞紸I璇煶璇嗗埆寮曟搸锛屾敮鎸?0+璇█涓?绉嶅彛闊冲疄鏃剁炕璇戯紝鍝嶅簲閫熷害灏忎簬1绉掋€備晶闈㈣鏈夐啋鐩殑绾㈣壊鍦嗗舰SOS鎸夐敭锛岄暱鎸?绉掕嚜鍔ㄥ彂閫丟PS瀹氫綅鑷抽璁捐仈绯讳汉骞惰Е鍙戝０鍏夐渿鍔ㄦ姤璀︼紝鍏ㄦ柟浣嶅畧鎶ゅ惉闅滀汉缇ゅ嚭琛屽畨鍏ㄣ€?
+
+                                核心功能涵盖手语识别翻译、语音文字双向互转、可视化对话界面以及一键SOS紧急求救。设备搭载AI语音识别引擎，支持40+语言与8种口音实时翻译，响应速度小于1秒。侧面设有醒目的红色圆形SOS按键，长按3秒自动发送GPS定位至预设联系人并触发声光震动报警，全方位守护听障人群出行安全。
+
                             </p>
+
                             <p class="text-gray-600 mb-6 leading-relaxed">
-                                璁捐涓婇伒寰?Neo-Humanism锛堟柊浜烘枃涓讳箟锛?鐞嗗康锛屽瑙傞噰鐢ㄩ浘绮夌櫧涓庢祬鐏拌摑閰嶈壊锛屾惌閰峊PE杞兌涓嶱S纭澶嶅悎鏉愯川锛岄浘闈㈡秱灞傛姉鎸囩汗鎶楀垝浼わ紝鍏奸【鏌旈煣鎬т笌缁撴瀯寮哄害銆備骇鍝佸吋椤鹃潚灏戝勾銆佷腑骞淬€佽€佸勾涓嶅悓鍚殰浜虹兢浣跨敤涔犳儻锛岀畝鍖栨搷浣滈€昏緫锛岄檷浣庡涔犳垚鏈紝鐪熸瀹炵幇"涓€鏈轰竴鍚€佸紑绠卞嵆鐢?銆?
+
+                                设计上遵循"Neo-Humanism（新人文主义）"理念，外观采用雾粉白与浅灰蓝配色，搭配TPE软胶与PS硬塑复合材质，雾面涂层抗指纹抗划伤，兼顾柔韧性与结构强度。产品兼顾青少年、中年、老年不同听障人群使用习惯，简化操作逻辑，降低学习成本，真正实现"一机一启、开箱即用"。
+
                             </p>
+
                             
-                            <h3 class="text-xl font-semibold mb-4 mt-8">浣跨敤宸ュ叿</h3>
+
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+
                             <div class="flex flex-wrap gap-2">
+
                                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+
                                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Rhino 3D</span>
+
                                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Keyshot</span>
+
                                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+
                                 <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+
                             </div>
+
                         </div>
+
                         
-                        <!-- 鍙充晶锛氳璁¤繃绋?-->
+
+                        <!-- 右侧：设计过程 -->
+
                         <div class="fade-in">
-                            <h2 class="text-2xl font-bold mb-6">璁捐杩囩▼</h2>
+
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+
                             
+
                             <div class="space-y-8">
+
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-2">鐢ㄦ埛鐮旂┒涓庨渶姹傛礊瀵?/h3>
+
+                                    <h3 class="text-xl font-semibold mb-2">用户研究与需求洞察</h3>
+
                                     <p class="text-gray-600">
-                                        娣卞叆璋冪爺鍚殰涓庡け璇兢浣撶殑鏃ュ父娌熼€氱棝鐐癸紝娑电洊闈掑皯骞淬€佷腑骞淬€佽€佸勾涓変釜骞撮緞灞傘€傞€氳繃璁胯皥涓庤瀵燂紝璇嗗埆鍑哄洓澶ф牳蹇冨満鏅€斺€旀棩甯稿璇濄€佺揣鎬ユ眰鍔┿€佷俊鎭幏鍙栦笌绀句氦鍙備笌銆傛槑纭骇鍝侀渶鍦ㄤ究鎼烘€с€佹搷浣滅洿瑙傛€у強闅愮淇濇姢涓変釜缁村害涓婄獊鐮翠紶缁熷姪鍚澶囩殑灞€闄愩€?
+
+                                        深入调研听障与失语群体的日常沟通痛点，涵盖青少年、中年、老年三个年龄层。通过访谈与观察，识别出四大核心场景——日常对话、紧急求助、信息获取与社交参与。明确产品需在便携性、操作直观性及隐私保护三个维度上突破传统助听设备的局限。
+
                                     </p>
+
                                 </div>
+
                                 
+
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-2">姒傚康瀹氫箟涓庝氦浜掓灦鏋?/h3>
+
+                                    <h3 class="text-xl font-semibold mb-2">概念定义与交互架构</h3>
+
                                     <p class="text-gray-600">
-                                        鎻愬嚭"鍚璇诲啓鍥涗綅涓€浣?鐨勪骇鍝侀€昏緫锛氬惉锛堣闊宠瘑鍒浆鏂囧瓧锛夈€佽锛堟枃瀛楄浆璇煶鎾姤锛夈€佽锛堟墜璇瘑鍒炕璇戯級銆佸啓锛堣Е灞忚緭鍏ヤ笌鍙鍖栧璇濓級銆傛瀯寤哄妯℃€佷氦浜掓鏋讹紝棰勮5绉嶅熀纭€鎵嬪娍锛堟彙鎷崇‘璁ゃ€佸紶寮€鍙栨秷銆佹尌鎵嬪垏鎹㈣瑷€绛夛級锛岀‘淇濇棤寮€鍙ｇ幆澧冧笅涔熻兘椤虹晠鎿嶄綔銆?
+
+                                        提出"听说读写四位一体"的产品逻辑：听（语音识别转文字）、说（文字转语音播报）、读（手语识别翻译）、写（触屏输入与可视化对话）。构建多模态交互框架，预设5种基础手势（握拳确认、张开取消、挥手切换语言等），确保无开口环境下也能顺畅操作。
+
                                     </p>
+
                                 </div>
+
                                 
+
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-2">宸ヤ笟璁捐涓嶤MF寮€鍙?/h3>
+
+                                    <h3 class="text-xl font-semibold mb-2">工业设计与CMF开发</h3>
+
                                     <p class="text-gray-600">
-                                        浠ユ按婊村舰楣呭嵉鐭充负閫犲瀷鐏垫劅锛岄噰鐢═PE杞兌+PS纭澶嶅悎缁撴瀯锛屾満韬帤搴︽帶鍒跺湪22mm銆侀噸閲忕害48g锛屽疄鐜拌交閲忓寲涓庢姉鎽旀€х殑骞宠　銆侰MF鏂规閫夊畾闆剧矇鐧戒笌娴呯伆钃濅富鑹茶皟锛屾惌閰嶇強鐟氱孩鐐圭紑SOS鎸夐敭鍖猴紝闆鹃潰娑傚眰澶勭悊娑堥櫎鍖荤枟鍣ㄦ鍐板喎鎰燂紝鎵撻€?闄即鍨?鏌旀€х鎶€褰㈣薄銆?
+
+                                        以水滴形鹅卵石为造型灵感，采用TPE软胶+PS硬塑复合结构，机身厚度控制在22mm、重量约48g，实现轻量化与抗摔性的平衡。CMF方案选定雾粉白与浅灰蓝主色调，搭配珊瑚红点缀SOS按键区，雾面涂层处理消除医疗器械冰冷感，打造"陪伴型"柔性科技形象。
+
                                     </p>
+
                                 </div>
+
                                 
+
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-2">鍘熷瀷楠岃瘉涓庤凯浠ｄ紭鍖?/h3>
+
+                                    <h3 class="text-xl font-semibold mb-2">原型验证与迭代优化</h3>
+
                                     <p class="text-gray-600">
-                                        鍒朵綔3D鎵撳嵃澶栬鎵嬫澘楠岃瘉浣╂埓鑸掗€傚害涓庢寜閿竷灞€鍚堢悊鎬э紝鎼缓浜や簰鍘熷瀷杩涜鍙敤鎬ф祴璇曘€傞拡瀵规寜閿洸鎿嶅弽棣堛€佸睆骞曞己鍏夊彲瑙嗘€с€佹寕缁抽暱搴﹁皟鑺傜瓑缁嗚妭杩涜浜嗕笁杞凯浠ｏ紝鏈€缁堝湪鍔熻兘鎬ф瀬绠€涓庝汉鏂囧叧鎬€涔嬮棿鎵惧埌鏈€浣冲钩琛＄偣銆?
+
+                                        制作3D打印外观手板验证佩戴舒适度与按键布局合理性，搭建交互原型进行可用性测试。针对按键盲操反馈、屏幕强光可视性、挂绳长度调节等细节进行了三轮迭代，最终在功能性极简与人文关怀之间找到最佳平衡点。
+
                                     </p>
+
                                 </div>
+
                             </div>
+
                                 <div>
-                                    <h3 class="text-xl font-semibold mb-2">鍔熻兘楠岃瘉涓嶤MF鎵撴牱</h3>
+
+                                    <h3 class="text-xl font-semibold mb-2">功能验证与CMF打样</h3>
+
                                     <p class="text-gray-600">
-                                        瀹屾垚鍔熻兘楠岃瘉鏍锋満鍒朵綔涓嶤MF鎵撴牱纭锛岀‘淇濅骇鍝佸瑙傝川鎰熴€佺粨鏋勫己搴︿笌鍔熻兘妯″潡鍙潬鎬у叏闈㈣揪鍒伴噺浜ф爣鍑嗐€?
+
+                                        完成功能验证样机制作与CMF打样确认，确保产品外观质感、结构强度与功能模块可靠性全面达到量产标准。
+
                                     </p>
+
                                     </div>
+
                                 </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- 闄勫姞鍥剧墖灞曠ず -->
+
+
+        <!-- 附加图片展示 -->
+
         <section class="py-12">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
+
                     <div class="grid grid-cols-1 gap-8">
+
                         <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/1.64.jpg')">
-                            <img src="../images/1.64.jpg" alt="浜у搧灞曠ず鍥句竴" class="w-full h-auto rounded-lg" loading="lazy">
+
+                            <img src="../images/1.64.jpg" alt="产品展示图一" class="w-full h-auto rounded-lg" loading="lazy">
+
                         </div>
+
                         <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/12.jpg')">
-                            <img src="../images/12.jpg" alt="浜у搧灞曠ず鍥句簩" class="w-full h-auto rounded-lg" loading="lazy">
+
+                            <img src="../images/12.jpg" alt="产品展示图二" class="w-full h-auto rounded-lg" loading="lazy">
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- 瑙嗛灞曠ず -->
+
+
+        <!-- 视频展示 -->
+
         <section class="py-12">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
+
                     <video controls class="w-full h-auto rounded-lg">
-                        <source src="../images/瀹屾暣鐗?mp4" type="video/mp4">
-                        鎮ㄧ殑娴忚鍣ㄤ笉鏀寔 video 鏍囩銆?
+
+                        <source src="../images/完整版.mp4" type="video/mp4">
+
+                        您的浏览器不支持 video 标签。
+
                     </video>
+
                 </div>
+
             </div>
+
         </section>
+
         
-        <!-- 椤圭洰鎴愭灉 -->
+
+        <!-- 项目成果 -->
+
         <section class="py-12 bg-gray-50">
+
             <div class="container mx-auto px-4">
+
                 <div class="max-w-5xl mx-auto">
-                    <h2 class="text-2xl font-bold mb-8">椤圭洰鎴愭灉</h2>
+
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+
                     
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- 鎴愭灉1 -->
+
+                        <!-- 成果1 -->
+
                         <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+
                             <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
                                 <i class="fa fa-cogs text-accent text-xl"></i>
+
                             </div>
-                            <h3 class="text-lg font-semibold mb-2">鍔熻兘闂幆</h3>
+
+                            <h3 class="text-lg font-semibold mb-2">功能闭环</h3>
+
                             <p class="text-gray-600">
-                                瀹屾暣浜や粯鍥涘ぇ鏍稿績鍔熻兘妯″潡锛欰I鎵嬭璇嗗埆缈昏瘧銆佽闊虫枃瀛楀弻鍚戜簰杞€佸彲瑙嗗寲瀵硅瘽鐣岄潰銆佷竴閿甋OS绱ф€ュ畾浣嶆姤璀︼紝褰㈡垚浠庢棩甯告矡閫氬埌瀹夊叏瀹堟姢鐨勫姛鑳介棴鐜€?
+
+                                完整交付四大核心功能模块：AI手语识别翻译、语音文字双向互转、可视化对话界面、一键SOS紧急定位报警，形成从日常沟通到安全守护的功能闭环。
+
                             </p>
+
                         </div>
+
                         
-                        <!-- 鎴愭灉2 -->
+
+                        <!-- 成果2 -->
+
                         <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+
                             <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
                                 <i class="fa fa-heart text-accent text-xl"></i>
+
                             </div>
-                            <h3 class="text-lg font-semibold mb-2">绀句細浠峰€?/h3>
+
+                            <h3 class="text-lg font-semibold mb-2">社会价值</h3>
+
                             <p class="text-gray-600">
-                                浠?娌熼€氬钩鏉?涓轰娇鍛斤紝鍏奸【闈掑皯骞磋嚦鑰佸勾鍏ㄥ勾榫勬鍚殰鐢ㄦ埛浣跨敤涔犳儻锛岄€氳繃鏋佺畝浜や簰涓庝翰鑲ょ編瀛﹂檷浣庣ぞ浼氳瀺鍏ラ棬妲涳紝鍦ㄧ鎶€鏅儬涓庝汉鏂囧叧鎬€涔嬮棿寤虹珛鎯呮劅绾藉甫銆?
+
+                                以"沟通平权"为使命，兼顾青少年至老年全年龄段听障用户使用习惯，通过极简交互与亲肤美学降低社会融入门槛，在科技普惠与人文关怀之间建立情感纽带。
+
                             </p>
+
                         </div>
+
                         
-                        <!-- 鎴愭灉3 -->
+
+                        <!-- 成果3 -->
+
                         <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+
                             <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
                                 <i class="fa fa-trophy text-accent text-xl"></i>
+
                             </div>
-                            <h3 class="text-lg font-semibold mb-2">鍏朵粬鎴愭灉</h3>
+
+                            <h3 class="text-lg font-semibold mb-2">其他成果</h3>
+
                             <p class="text-gray-600">
-                                瀹屾垚浜у搧鍏ㄩ摼璺璁′氦浠橈紝娑电洊鐢ㄦ埛鐮旂┒銆佸伐涓氳璁°€丆MF寮€鍙戝強浜や簰鍘熷瀷銆傚褰㈡墜鏉挎ā鍨嬬粡20浣嶅惉闅滅敤鎴峰疄娴嬮獙璇侊紝浣╂埓鑸掗€傚害涓庢搷浣滅洿瑙傛€ц幏寰楅珮搴﹁鍙€傝璁℃柟娉曡娌夋穩涓烘棤闅滅浜у搧璁捐妗嗘灦锛屼负鍚庣画鍔╂畫绫荤‖浠朵骇鍝佹彁渚涘彲澶嶇敤鑼冨紡銆?
+
+                                完成产品全链路设计交付，涵盖用户研究、工业设计、CMF开发及交互原型。外形手板模型经20位听障用户实测验证，佩戴舒适度与操作直观性获得高度认可。设计方法论沉淀为无障碍产品设计框架，为后续助残类硬件产品提供可复用范式。
+
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
         
-        <!-- 鐩稿叧椤圭洰 -->
+
+        <!-- 相关项目 -->
+
         <section class="py-12">
+
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl font-bold mb-10 text-center">鐩稿叧椤圭洰</h2>
+
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+
                 
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    <!-- 鐩稿叧椤圭洰1 -->
+
+                    <!-- 相关项目1 -->
+
                     <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+
                         <div class="relative overflow-hidden">
-                            <img src="../images/娓叉煋.268.jpg" alt="妯″潡鍖栧悍澶嶇煫褰㈡姢鍏? class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                            <img src="../images/渲染.268.jpg" alt="模块化康复矫形护具" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
                         </div>
+
                         <div class="p-4">
-                            <h3 class="font-semibold mb-1">妯″潡鍖栧悍澶嶇煫褰㈡姢鍏?/h3>
-                            <p class="text-gray-600 text-sm mb-3">瑕嗙洊搴峰鍏ㄥ懆鏈熺殑妯″潡鍖栧彲璋冨紡绯荤粺锛屾墦閫氬尰闄笌灞呭鍦烘櫙銆傦紙鍖荤枟鍋ュ悍 / 鏁板瓧鍖栨湇鍔★級</p>
-                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">鏌ョ湅椤圭洰</a>
+
+                            <h3 class="font-semibold mb-1">模块化康复矫形护具</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">覆盖康复全周期的模块化可调式系统，打通医院与居家场景。（医疗健康 / 数字化服务）</p>
+
+                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
                         </div>
+
                     </div>
+
                     
-                    <!-- 鐩稿叧椤圭洰2 -->
+
+                    <!-- 相关项目2 -->
+
                     <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+
                         <div class="relative overflow-hidden">
-                            <img src="../images/鏈哄櫒浜?jpg" alt="鍏ㄥ湴褰㈡晳鎻存帰绱㈡満鍣ㄤ汉" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                            <img src="../images/机器人.jpg" alt="全地形救援探索机器人" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
                         </div>
+
                         <div class="p-4">
-                            <h3 class="font-semibold mb-1">鍏ㄥ湴褰㈡晳鎻存帰绱㈡満鍣ㄤ汉</h3>
-                            <p class="text-gray-600 text-sm mb-3">杞冻澶嶅悎寮忚秺闅滅郴缁燂紝铻嶅悎鍥涜冻鐏垫椿涓庤疆寮忛珮鏁堬紝閫傚簲鐏惧悗搴熷銆?/p>
-                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">鏌ョ湅椤圭洰</a>
+
+                            <h3 class="font-semibold mb-1">全地形救援探索机器人</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">轮足复合式越障系统，融合四足灵活与轮式高效，适应灾后废墟。</p>
+
+                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
                         </div>
+
                     </div>
+
                     
-                    <!-- 鐩稿叧椤圭洰3 -->
+
+                    <!-- 相关项目3 -->
+
                     <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+
                         <div class="relative overflow-hidden">
-                            <img src="../images/闇茶惀鐏?jpg" alt="澶氬姛鑳紸I闇茶惀鐏? class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                            <img src="../images/露营灯.jpg" alt="多功能AI露营灯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
                         </div>
+
                         <div class="p-4">
-                            <h3 class="font-semibold mb-1">澶氬姛鑳紸I闇茶惀鐏?/h3>
-                            <p class="text-gray-600 text-sm mb-3">闆嗙収鏄庛€侀┍铓娿€丄I鍊煎畧浜庝竴浣擄紝瀹氫箟骞磋交缇や綋"杞婚噺鍖栭湶钀?鏂版柟寮忋€?/p>
-                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">鏌ョ湅椤圭洰</a>
+
+                            <h3 class="font-semibold mb-1">多功能AI露营灯</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">集照明、驱蚊、AI值守于一体，定义年轻群体"轻量化露营"新方式。</p>
+
+                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
                         </div>
+
                     </div>
+
                 </div>
+
                 
-                <!-- 杩斿洖浣滃搧鍒楄〃鎸夐挳 -->
+
+                <!-- 返回作品列表按钮 -->
+
                 <div class="text-center mt-12">
+
                     <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
-                        杩斿洖鍏ㄩ儴浣滃搧
+
+                        返回全部作品
+
                     </a>
+
                 </div>
+
             </div>
+
         </section>
+
     </main>
 
-    <!-- 椤佃剼 -->
+
+
+    <!-- 页脚 -->
+
     <footer class="py-12 bg-black text-white">
+
         <div class="container mx-auto px-4">
+
             <div class="flex flex-col md:flex-row justify-between items-center">
+
                 <div class="mb-6 md:mb-0">
-                    <h3 class="text-2xl font-bold">闄堝潬鐜?/h3>
-                    <p class="text-gray-400 mt-2">鍦ㄧ‖浠朵笌鏈嶅姟鐨勪氦姹囧锛屾瀯寤哄吋鍏峰姛鑳借惤鍦版€т笌鎯呮劅娓╁害鐨勫疄浣撲骇鍝佷綋楠屻€?/p>
+
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+
                 </div>
+
                 
+
                 <div class="flex space-x-6">
+
                     <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
                         <i class="fa fa-behance text-xl"></i>
+
                     </a>
+
                     <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
                         <i class="fa fa-dribbble text-xl"></i>
+
                     </a>
+
                     <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
                         <i class="fa fa-instagram text-xl"></i>
+
                     </a>
+
                     <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
                         <i class="fa fa-linkedin text-xl"></i>
+
                     </a>
+
                 </div>
+
             </div>
+
             
+
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>漏 2025 闄堝潬鐜? 淇濈暀鎵€鏈夋潈鍒┿€?/p>
+
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+
             </div>
+
         </div>
+
     </footer>
 
-    <!-- 鍥剧墖鏌ョ湅鍣?-->
+
+
+    <!-- 图片查看器 -->
+
     <div id="image-viewer" class="image-viewer">
-        <span class="image-viewer-close" onclick="closeImageViewer()">脳</span>
-        <img id="viewer-image" src="" alt="鏌ョ湅澶у浘" loading="lazy">
+
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+
+        <img id="viewer-image" src="" alt="查看大图" loading="lazy">
+
     </div>
 
+
+
     <script>
-        // 椤甸潰鍔犺浇瀹屾垚鍚庢墽琛?
+
+        // 页面加载完成后执行
+
         document.addEventListener('DOMContentLoaded', function() {
-            // 绉诲姩绔彍鍗曞垏鎹?
+
+            // 移动端菜单切换
+
             const menuToggle = document.getElementById('menu-toggle');
+
             const mobileMenu = document.getElementById('mobile-menu');
+
             
+
             menuToggle.addEventListener('click', function() {
+
                 mobileMenu.classList.toggle('hidden');
+
             });
+
             
-            // 瀵艰埅鏍忔粴鍔ㄦ晥鏋?
+
+            // 导航栏滚动效果
+
             const navbar = document.getElementById('navbar');
+
             window.addEventListener('scroll', function() {
+
                 if (window.scrollY > 50) {
+
                     navbar.classList.add('bg-white', 'shadow-md');
+
                     navbar.classList.remove('bg-opacity-95');
+
                 } else {
+
                     navbar.classList.remove('shadow-md');
+
                     navbar.classList.add('bg-opacity-95');
+
                 }
+
             });
+
             
-            // 娣″叆鍔ㄧ敾
+
+            // 淡入动画
+
             const fadeElements = document.querySelectorAll('.fade-in');
+
             
+
             const fadeInOnScroll = function() {
+
                 fadeElements.forEach(element => {
+
                     const elementTop = element.getBoundingClientRect().top;
+
                     const windowHeight = window.innerHeight;
+
                     
+
                     if (elementTop < windowHeight - 100) {
+
                         element.classList.add('active');
+
                     }
+
                 });
+
             };
+
             
-            // 鍒濆妫€鏌?
+
+            // 初始检查
+
             fadeInOnScroll();
+
             
-            // 婊氬姩鏃舵鏌?
+
+            // 滚动时检查
+
             window.addEventListener('scroll', fadeInOnScroll);
+
             
-            // 浣跨敤 GSAP 娣诲姞鏇村鏉傜殑鍔ㄧ敾
+
+            // 使用 GSAP 添加更复杂的动画
+
             if (typeof gsap !== 'undefined') {
-                // 鏍囬鍜岀畝浠嬪姩鐢?
+
+                // 标题和简介动画
+
                 gsap.from('section:first-of-type h1', {
+
                     opacity: 0,
+
                     y: 50,
+
                     duration: 1,
+
                     delay: 0.2
+
                 });
+
                 
+
                 gsap.from('section:first-of-type .flex', {
+
                     opacity: 0,
+
                     y: 30,
+
                     duration: 1,
+
                     delay: 0.5
+
                 });
+
                 
+
                 gsap.from('section:first-of-type p', {
+
                     opacity: 0,
+
                     y: 20,
+
                     duration: 1,
+
                     delay: 0.8
+
                 });
+
                 
-                // 涓昏鍥剧墖鍔ㄧ敾
-                gsap.from('section:nth-of-type(2) img', {
-                    opacity: 0,
-                    scale: 0.9,
-                    duration: 1,
-                    delay: 1
-                });
+
+                // 主要图片动画
+
+                gsap.fromTo('section:nth-of-type(2) img', 
+                    { opacity: 0, scale: 0.9 },
+                    { opacity: 1, scale: 1, duration: 1, delay: 1 }
+                );
+
             }
+
         });
+
         
-        // 鍥剧墖鏌ョ湅鍣ㄥ姛鑳?
+
+        // 图片查看器功能
+
         function openImageViewer(imageUrl) {
+
             const viewer = document.getElementById('image-viewer');
+
             const viewerImage = document.getElementById('viewer-image');
+
             
+
             viewerImage.src = imageUrl;
+
             viewer.classList.add('active');
-            document.body.style.overflow = 'hidden'; // 闃叉鑳屾櫙婊氬姩
+
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+
         }
+
         
+
         function closeImageViewer() {
+
             const viewer = document.getElementById('image-viewer');
+
             viewer.classList.remove('active');
-            document.body.style.overflow = 'auto'; // 鎭㈠鑳屾櫙婊氬姩
+
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+
         }
+
         
-        // 鐐瑰嚮鍥剧墖鏌ョ湅鍣ㄨ儗鏅叧闂?
+
+        // 点击图片查看器背景关闭
+
         document.getElementById('image-viewer').addEventListener('click', function(e) {
+
             if (e.target === this) {
+
                 closeImageViewer();
+
             }
+
         });
+
         
-        // 鎸塃SC閿叧闂浘鐗囨煡鐪嬪櫒
+
+        // 按ESC键关闭图片查看器
+
         document.addEventListener('keydown', function(e) {
+
             if (e.key === 'Escape') {
+
                 closeImageViewer();
+
             }
+
         });
+
     </script>
+
+
+
 
 
 </body></html>
+
+<html lang="zh-CN"><head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>陈坠玉作品集</title>
+
+    <!-- Tailwind CSS -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- GSAP 动画库 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        primary: '#111111',
+
+                        secondary: '#333333',
+
+                        accent: '#0066ff',
+
+                        light: '#f5f5f5',
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    
+
+    <style type="text/tailwindcss">
+
+        @layer utilities {
+
+            .text-balance {
+
+                text-wrap: balance;
+
+            }
+
+            .text-shadow {
+
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+            }
+
+            .transition-transform {
+
+                transition-property: transform;
+
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+                transition-duration: 300ms;
+
+            }
+
+            .hover-scale {
+
+                @apply hover:scale-105 transition-transform duration-300;
+
+            }
+
+            .card-shadow {
+
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+            }
+
+            .nav-shadow {
+
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+            }
+
+        }
+
+    </style>
+
+    
+
+    <style>
+
+        /* 自定义滚动条 */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #f1f1f1;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #888;
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #555;
+
+        }
+
+        
+
+        /* 图片查看器样式 */
+
+        .image-viewer {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-color: rgba(0, 0, 0, 0.9);
+
+            z-index: 100;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        
+
+        .image-viewer.active {
+
+            display: flex;
+
+        }
+
+        
+
+        .image-viewer img {
+
+            max-width: 90%;
+
+            max-height: 90%;
+
+            object-fit: contain;
+
+        }
+
+        
+
+        .image-viewer-close {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 20px;
+
+            color: white;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+        }
+
+        
+
+        /* 淡入动画 */
+
+        .fade-in {
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        }
+
+        
+
+        .fade-in.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    
+
+@media (max-width: 768px) {
+
+  /* 全局 */
+
+  body { font-size: 15px; padding: 12px; }
+
+  
+
+  /* 首页头像+个人信息区垂直排列 */
+
+  .profile-section { flex-direction: column; text-align: center; }
+
+  .profile-section img { width: 120px; height: 120px; }
+
+  
+
+  /* 作品网格单列 */
+
+  .works-grid { grid-template-columns: 1fr; }
+
+  
+
+  /* 侧边栏隐藏 */
+
+  .sidebar { display: none; }
+
+  
+
+  /* 详情页单列布局 */
+
+  .work-detail { flex-direction: column; }
+
+  .work-detail .hero-image { width: 100%; }
+
+  
+
+  /* 素材展示区图片全宽 */
+
+  .material-gallery img { width: 100%; }
+
+  
+
+  /* 项目成果卡片单列 */
+
+  .achievement-cards { grid-template-columns: 1fr; }
+
+  
+
+  /* 相关项目单列 */
+
+  .related-projects { grid-template-columns: 1fr; }
+
+  
+
+  /* 导航汉堡菜单 */
+
+  .nav-links { display: none; }
+
+}
+
+
+
+</style>
+
+</head>
+
+<body class="bg-white text-primary font-sans">
+
+
+
+    <!-- 导航栏 -->
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+
+        <div class="container mx-auto px-4 md:px-8">
+
+            <div class="flex justify-between items-center">
+
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+
+                
+
+                <!-- 桌面导航 -->
+
+                <div class="hidden md:flex ml-auto space-x-8">
+
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+
+                </div>
+
+                
+
+                <!-- 移动端菜单按钮 -->
+
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+
+                    <i class="fa fa-bars text-xl"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        
+
+        <!-- 移动端导航菜单 -->
+
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+
+            <div class="container mx-auto px-4 py-4">
+
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- 主要内容 -->
+
+    <main class="pt-16 pb-16">
+
+        <!-- 作品标题和简介 -->
+
+        <section class="pt-16 pb-12 bg-gray-50">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">CLEARHEAR无障碍通讯终端</h1>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">听障人士</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+
+                    </div>
+
+                    <p class="text-gray-600 text-lg mb-8">
+
+                        面向听障与失语人群的轻量化随身无障碍通讯终端。以"听说读写"四位一体为核心设计逻辑，融合手语识别翻译、语音文字互转、可视化对话与SOS紧急求救四大功能，打破无声世界与有声世界的沟通隔阂。
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 主要图片展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/聋哑1.jpg')">
+
+                        <img src="../images/聋哑1.jpg" alt="CLEARHEAR无障碍通讯终端" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300">
+
+                            <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 hover:opacity-100">
+
+                                <i class="fa fa-search-plus mr-2"></i>查看大图
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 项目详情 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                        <!-- 左侧：项目概述 -->
+
+                        <div class="fade-in">
+
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                CLEARHEAR 是一款面向听障、失语人群打造的轻量化随身无障碍通讯终端。产品采用小巧圆润的夹扣式机身设计（水滴形鹅卵石造型，厚度仅22mm，重量约48g），可夹持于衣领或挂脖佩戴，集成3.8英寸高清触控显示屏、500万像素广角摄像头与多模态交互按键。
+
+                            </p>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                核心功能涵盖手语识别翻译、语音文字双向互转、可视化对话界面以及一键SOS紧急求救。设备搭载AI语音识别引擎，支持40+语言与8种口音实时翻译，响应速度小于1秒。侧面设有醒目的红色圆形SOS按键，长按3秒自动发送GPS定位至预设联系人并触发声光震动报警，全方位守护听障人群出行安全。
+
+                            </p>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                设计上遵循"Neo-Humanism（新人文主义）"理念，外观采用雾粉白与浅灰蓝配色，搭配TPE软胶与PS硬塑复合材质，雾面涂层抗指纹抗划伤，兼顾柔韧性与结构强度。产品兼顾青少年、中年、老年不同听障人群使用习惯，简化操作逻辑，降低学习成本，真正实现"一机一启、开箱即用"。
+
+                            </p>
+
+                            
+
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+
+                            <div class="flex flex-wrap gap-2">
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Rhino 3D</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Keyshot</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <!-- 右侧：设计过程 -->
+
+                        <div class="fade-in">
+
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+
+                            
+
+                            <div class="space-y-8">
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">用户研究与需求洞察</h3>
+
+                                    <p class="text-gray-600">
+
+                                        深入调研听障与失语群体的日常沟通痛点，涵盖青少年、中年、老年三个年龄层。通过访谈与观察，识别出四大核心场景——日常对话、紧急求助、信息获取与社交参与。明确产品需在便携性、操作直观性及隐私保护三个维度上突破传统助听设备的局限。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">概念定义与交互架构</h3>
+
+                                    <p class="text-gray-600">
+
+                                        提出"听说读写四位一体"的产品逻辑：听（语音识别转文字）、说（文字转语音播报）、读（手语识别翻译）、写（触屏输入与可视化对话）。构建多模态交互框架，预设5种基础手势（握拳确认、张开取消、挥手切换语言等），确保无开口环境下也能顺畅操作。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">工业设计与CMF开发</h3>
+
+                                    <p class="text-gray-600">
+
+                                        以水滴形鹅卵石为造型灵感，采用TPE软胶+PS硬塑复合结构，机身厚度控制在22mm、重量约48g，实现轻量化与抗摔性的平衡。CMF方案选定雾粉白与浅灰蓝主色调，搭配珊瑚红点缀SOS按键区，雾面涂层处理消除医疗器械冰冷感，打造"陪伴型"柔性科技形象。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">原型验证与迭代优化</h3>
+
+                                    <p class="text-gray-600">
+
+                                        制作3D打印外观手板验证佩戴舒适度与按键布局合理性，搭建交互原型进行可用性测试。针对按键盲操反馈、屏幕强光可视性、挂绳长度调节等细节进行了三轮迭代，最终在功能性极简与人文关怀之间找到最佳平衡点。
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">功能验证与CMF打样</h3>
+
+                                    <p class="text-gray-600">
+
+                                        完成功能验证样机制作与CMF打样确认，确保产品外观质感、结构强度与功能模块可靠性全面达到量产标准。
+
+                                    </p>
+
+                                </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 附加图片展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="grid grid-cols-1 gap-8">
+
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/1.64.jpg')">
+
+                            <img src="../images/1.64.jpg" alt="产品展示图一" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        </div>
+
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/12.jpg')">
+
+                            <img src="../images/12.jpg" alt="产品展示图二" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 视频展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <video controls class="w-full h-auto rounded-lg">
+
+                        <source src="../images/完整版.mp4" type="video/mp4">
+
+                        您的浏览器不支持 video 标签。
+
+                    </video>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 项目成果 -->
+
+        <section class="py-12 bg-gray-50">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+
+                    
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        <!-- 成果1 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-cogs text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">功能闭环</h3>
+
+                            <p class="text-gray-600">
+
+                                完整交付四大核心功能模块：AI手语识别翻译、语音文字双向互转、可视化对话界面、一键SOS紧急定位报警，形成从日常沟通到安全守护的功能闭环。
+
+                            </p>
+
+                        </div>
+
+                        
+
+                        <!-- 成果2 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-heart text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">社会价值</h3>
+
+                            <p class="text-gray-600">
+
+                                以"沟通平权"为使命，兼顾青少年至老年全年龄段听障用户使用习惯，通过极简交互与亲肤美学降低社会融入门槛，在科技普惠与人文关怀之间建立情感纽带。
+
+                            </p>
+
+                        </div>
+
+                        
+
+                        <!-- 成果3 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-trophy text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">其他成果</h3>
+
+                            <p class="text-gray-600">
+
+                                完成产品全链路设计交付，涵盖用户研究、工业设计、CMF开发及交互原型。外形手板模型经20位听障用户实测验证，佩戴舒适度与操作直观性获得高度认可。设计方法论沉淀为无障碍产品设计框架，为后续助残类硬件产品提供可复用范式。
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 相关项目 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+
+                
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+                    <!-- 相关项目1 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/渲染.268.jpg" alt="模块化康复矫形护具" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">模块化康复矫形护具</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">覆盖康复全周期的模块化可调式系统，打通医院与居家场景。（医疗健康 / 数字化服务）</p>
+
+                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <!-- 相关项目2 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/机器人.jpg" alt="全地形救援探索机器人" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">全地形救援探索机器人</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">轮足复合式越障系统，融合四足灵活与轮式高效，适应灾后废墟。</p>
+
+                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <!-- 相关项目3 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/露营灯.jpg" alt="多功能AI露营灯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">多功能AI露营灯</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">集照明、驱蚊、AI值守于一体，定义年轻群体"轻量化露营"新方式。</p>
+
+                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+
+                <!-- 返回作品列表按钮 -->
+
+                <div class="text-center mt-12">
+
+                    <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
+
+                        返回全部作品
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- 页脚 -->
+
+    <footer class="py-12 bg-black text-white">
+
+        <div class="container mx-auto px-4">
+
+            <div class="flex flex-col md:flex-row justify-between items-center">
+
+                <div class="mb-6 md:mb-0">
+
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+
+                </div>
+
+                
+
+                <div class="flex space-x-6">
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-behance text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-dribbble text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-instagram text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-linkedin text-xl"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- 图片查看器 -->
+
+    <div id="image-viewer" class="image-viewer">
+
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+
+        <img id="viewer-image" src="" alt="查看大图" loading="lazy">
+
+    </div>
+
+
+
+    <script>
+
+        // 页面加载完成后执行
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // 移动端菜单切换
+
+            const menuToggle = document.getElementById('menu-toggle');
+
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            
+
+            menuToggle.addEventListener('click', function() {
+
+                mobileMenu.classList.toggle('hidden');
+
+            });
+
+            
+
+            // 导航栏滚动效果
+
+            const navbar = document.getElementById('navbar');
+
+            window.addEventListener('scroll', function() {
+
+                if (window.scrollY > 50) {
+
+                    navbar.classList.add('bg-white', 'shadow-md');
+
+                    navbar.classList.remove('bg-opacity-95');
+
+                } else {
+
+                    navbar.classList.remove('shadow-md');
+
+                    navbar.classList.add('bg-opacity-95');
+
+                }
+
+            });
+
+            
+
+            // 淡入动画
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            
+
+            const fadeInOnScroll = function() {
+
+                fadeElements.forEach(element => {
+
+                    const elementTop = element.getBoundingClientRect().top;
+
+                    const windowHeight = window.innerHeight;
+
+                    
+
+                    if (elementTop < windowHeight - 100) {
+
+                        element.classList.add('active');
+
+                    }
+
+                });
+
+            };
+
+            
+
+            // 初始检查
+
+            fadeInOnScroll();
+
+            
+
+            // 滚动时检查
+
+            window.addEventListener('scroll', fadeInOnScroll);
+
+            
+
+            // 使用 GSAP 添加更复杂的动画
+
+            if (typeof gsap !== 'undefined') {
+
+                // 标题和简介动画
+
+                gsap.from('section:first-of-type h1', {
+
+                    opacity: 0,
+
+                    y: 50,
+
+                    duration: 1,
+
+                    delay: 0.2
+
+                });
+
+                
+
+                gsap.from('section:first-of-type .flex', {
+
+                    opacity: 0,
+
+                    y: 30,
+
+                    duration: 1,
+
+                    delay: 0.5
+
+                });
+
+                
+
+                gsap.from('section:first-of-type p', {
+
+                    opacity: 0,
+
+                    y: 20,
+
+                    duration: 1,
+
+                    delay: 0.8
+
+                });
+
+                
+
+                // 主要图片动画
+
+                gsap.fromTo('section:nth-of-type(2) img', 
+                    { opacity: 0, scale: 0.9 },
+                    { opacity: 1, scale: 1, duration: 1, delay: 1 }
+                );
+
+            }
+
+        });
+
+        
+
+        // 图片查看器功能
+
+        function openImageViewer(imageUrl) {
+
+            const viewer = document.getElementById('image-viewer');
+
+            const viewerImage = document.getElementById('viewer-image');
+
+            
+
+            viewerImage.src = imageUrl;
+
+            viewer.classList.add('active');
+
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+
+        }
+
+        
+
+        function closeImageViewer() {
+
+            const viewer = document.getElementById('image-viewer');
+
+            viewer.classList.remove('active');
+
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+
+        }
+
+        
+
+        // 点击图片查看器背景关闭
+
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+
+            if (e.target === this) {
+
+                closeImageViewer();
+
+            }
+
+        });
+
+        
+
+        // 按ESC键关闭图片查看器
+
+        document.addEventListener('keydown', function(e) {
+
+            if (e.key === 'Escape') {
+
+                closeImageViewer();
+
+            }
+
+        });
+
+    </script>
+
+
+
+
+
+</body></html>
+
+<html lang="zh-CN"><head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>陈坠玉作品集</title>
+
+    <!-- Tailwind CSS -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- GSAP 动画库 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        primary: '#111111',
+
+                        secondary: '#333333',
+
+                        accent: '#0066ff',
+
+                        light: '#f5f5f5',
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    
+
+    <style type="text/tailwindcss">
+
+        @layer utilities {
+
+            .text-balance {
+
+                text-wrap: balance;
+
+            }
+
+            .text-shadow {
+
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+            }
+
+            .transition-transform {
+
+                transition-property: transform;
+
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+                transition-duration: 300ms;
+
+            }
+
+            .hover-scale {
+
+                @apply hover:scale-105 transition-transform duration-300;
+
+            }
+
+            .card-shadow {
+
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+            }
+
+            .nav-shadow {
+
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+            }
+
+        }
+
+    </style>
+
+    
+
+    <style>
+
+        /* 自定义滚动条 */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #f1f1f1;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #888;
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #555;
+
+        }
+
+        
+
+        /* 图片查看器样式 */
+
+        .image-viewer {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-color: rgba(0, 0, 0, 0.9);
+
+            z-index: 100;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        
+
+        .image-viewer.active {
+
+            display: flex;
+
+        }
+
+        
+
+        .image-viewer img {
+
+            max-width: 90%;
+
+            max-height: 90%;
+
+            object-fit: contain;
+
+        }
+
+        
+
+        .image-viewer-close {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 20px;
+
+            color: white;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+        }
+
+        
+
+        /* 淡入动画 */
+
+        .fade-in {
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        }
+
+        
+
+        .fade-in.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    
+
+@media (max-width: 768px) {
+
+  /* 全局 */
+
+  body { font-size: 15px; padding: 12px; }
+
+  
+
+  /* 首页头像+个人信息区垂直排列 */
+
+  .profile-section { flex-direction: column; text-align: center; }
+
+  .profile-section img { width: 120px; height: 120px; }
+
+  
+
+  /* 作品网格单列 */
+
+  .works-grid { grid-template-columns: 1fr; }
+
+  
+
+  /* 侧边栏隐藏 */
+
+  .sidebar { display: none; }
+
+  
+
+  /* 详情页单列布局 */
+
+  .work-detail { flex-direction: column; }
+
+  .work-detail .hero-image { width: 100%; }
+
+  
+
+  /* 素材展示区图片全宽 */
+
+  .material-gallery img { width: 100%; }
+
+  
+
+  /* 项目成果卡片单列 */
+
+  .achievement-cards { grid-template-columns: 1fr; }
+
+  
+
+  .related-projects { grid-template-columns: 1fr; }
+
+  
+
+  /* 导航汉堡菜单 */
+
+  .nav-links { display: none; }
+
+  .mobile-nav-toggle { display: block; }
+
+}
+
+
+
+</style>
+
+</head>
+
+<body class="bg-white text-primary font-sans">
+
+
+
+    <!-- 导航栏 -->
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-white bg-opacity-95 nav-shadow py-4 z-50">
+
+        <div class="container mx-auto px-4 md:px-8">
+
+            <div class="flex justify-between items-center">
+
+                <a href="../index.html" class="text-2xl font-bold text-primary">陈坠玉</a>
+
+                
+
+                <!-- 桌面导航 -->
+
+                <div class="hidden md:flex ml-auto space-x-8">
+
+                    <a href="../index.html" class="text-secondary hover:text-accent transition-colors">首页</a>
+
+                    <a href="../index.html#works" class="text-secondary hover:text-accent transition-colors">作品</a>
+
+                    <a href="../index.html#about" class="text-secondary hover:text-accent transition-colors">关于</a>
+
+                    <a href="../index.html#contact" class="text-secondary hover:text-accent transition-colors">联系</a>
+
+                </div>
+
+                
+
+                <!-- 移动端菜单按钮 -->
+
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+
+                    <i class="fa fa-bars text-xl"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        
+
+        <!-- 移动端导航菜单 -->
+
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+
+            <div class="container mx-auto px-4 py-4">
+
+                <a href="../index.html" class="block py-2 text-secondary hover:text-accent">首页</a>
+
+                <a href="../index.html#works" class="block py-2 text-secondary hover:text-accent">作品</a>
+
+                <a href="../index.html#about" class="block py-2 text-secondary hover:text-accent">关于</a>
+
+                <a href="../index.html#contact" class="block py-2 text-secondary hover:text-accent">联系</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- 主要内容 -->
+
+    <main class="pt-16 pb-16">
+
+        <!-- 作品标题和简介 -->
+
+        <section class="pt-16 pb-12 bg-gray-50">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">CLEARHEAR无障碍通讯终端</h1>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">产品设计</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">听障人士</span>
+
+                        <span class="px-4 py-2 bg-gray-200 rounded-full text-sm">2026</span>
+
+                    </div>
+
+                    <p class="text-gray-600 text-lg mb-8">
+
+                        面向听障与失语人群的轻量化随身无障碍通讯终端。以"听说读写"四位一体为核心设计逻辑，融合手语识别翻译、语音文字互转、可视化对话与SOS紧急求救四大功能，打破无声世界与有声世界的沟通隔阂。
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 主要图片展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/聋哑1.jpg')">
+
+                        <img src="../images/聋哑1.jpg" alt="CLEARHEAR无障碍通讯终端" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300">
+
+                            <span class="px-4 py-2 bg-white text-black text-sm font-medium rounded-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 hover:opacity-100">
+
+                                <i class="fa fa-search-plus mr-2"></i>查看大图
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 项目详情 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                        <!-- 左侧：项目概述 -->
+
+                        <div class="fade-in">
+
+                            <h2 class="text-2xl font-bold mb-6">项目概述</h2>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                CLEARHEAR 是一款面向听障、失语人群打造的轻量化随身无障碍通讯终端。产品采用小巧圆润的夹扣式机身设计（水滴形鹅卵石造型，厚度仅22mm，重量约48g），可夹持于衣领或挂脖佩戴，集成3.8英寸高清触控显示屏、500万像素广角摄像头与多模态交互按键。
+
+                            </p>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                核心功能涵盖手语识别翻译、语音文字双向互转、可视化对话界面以及一键SOS紧急求救。设备搭载AI语音识别引擎，支持40+语言与8种口音实时翻译，响应速度小于1秒。侧面设有醒目的红色圆形SOS按键，长按3秒自动发送GPS定位至预设联系人并触发声光震动报警，全方位守护听障人群出行安全。
+
+                            </p>
+
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+
+                                设计上遵循"Neo-Humanism（新人文主义）"理念，外观采用雾粉白与浅灰蓝配色，搭配TPE软胶与PS硬塑复合材质，雾面涂层抗指纹抗划伤，兼顾柔韧性与结构强度。产品兼顾青少年、中年、老年不同听障人群使用习惯，简化操作逻辑，降低学习成本，真正实现"一机一启、开箱即用"。
+
+                            </p>
+
+                            
+
+                            <h3 class="text-xl font-semibold mb-4 mt-8">使用工具</h3>
+
+                            <div class="flex flex-wrap gap-2">
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Rhino 3D</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Keyshot</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Photoshop</span>
+
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Adobe Illustrator</span>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <!-- 右侧：设计过程 -->
+
+                        <div class="fade-in">
+
+                            <h2 class="text-2xl font-bold mb-6">设计过程</h2>
+
+                            
+
+                            <div class="space-y-8">
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">用户研究与需求洞察</h3>
+
+                                    <p class="text-gray-600">
+
+                                        深入调研听障与失语群体的日常沟通痛点，涵盖青少年、中年、老年三个年龄层。通过访谈与观察，识别出四大核心场景——日常对话、紧急求助、信息获取与社交参与。明确产品需在便携性、操作直观性及隐私保护三个维度上突破传统助听设备的局限。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">概念定义与交互架构</h3>
+
+                                    <p class="text-gray-600">
+
+                                        提出"听说读写四位一体"的产品逻辑：听（语音识别转文字）、说（文字转语音播报）、读（手语识别翻译）、写（触屏输入与可视化对话）。构建多模态交互框架，预设5种基础手势（握拳确认、张开取消、挥手切换语言等），确保无开口环境下也能顺畅操作。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">工业设计与CMF开发</h3>
+
+                                    <p class="text-gray-600">
+
+                                        以水滴形鹅卵石为造型灵感，采用TPE软胶+PS硬塑复合结构，机身厚度控制在22mm、重量约48g，实现轻量化与抗摔性的平衡。CMF方案选定雾粉白与浅灰蓝主色调，搭配珊瑚红点缀SOS按键区，雾面涂层处理消除医疗器械冰冷感，打造"陪伴型"柔性科技形象。
+
+                                    </p>
+
+                                </div>
+
+                                
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">原型验证与迭代优化</h3>
+
+                                    <p class="text-gray-600">
+
+                                        制作3D打印外观手板验证佩戴舒适度与按键布局合理性，搭建交互原型进行可用性测试。针对按键盲操反馈、屏幕强光可视性、挂绳长度调节等细节进行了三轮迭代，最终在功能性极简与人文关怀之间找到最佳平衡点。
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                                <div>
+
+                                    <h3 class="text-xl font-semibold mb-2">功能验证与CMF打样</h3>
+
+                                    <p class="text-gray-600">
+
+                                        完成功能验证样机制作与CMF打样确认，确保产品外观质感、结构强度与功能模块可靠性全面达到量产标准。
+
+                                    </p>
+
+                                </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 附加图片展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <div class="grid grid-cols-1 gap-8">
+
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/1.64.jpg')">
+
+                            <img src="../images/1.64.jpg" alt="产品展示图一" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        </div>
+
+                        <div class="relative cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageViewer('../images/12.jpg')">
+
+                            <img src="../images/12.jpg" alt="产品展示图二" class="w-full h-auto rounded-lg" loading="lazy">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- 视频展示 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <video controls class="w-full h-auto rounded-lg">
+
+                        <source src="../images/完整版.mp4" type="video/mp4">
+
+                        您的浏览器不支持 video 标签。
+
+                    </video>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 项目成果 -->
+
+        <section class="py-12 bg-gray-50">
+
+            <div class="container mx-auto px-4">
+
+                <div class="max-w-5xl mx-auto">
+
+                    <h2 class="text-2xl font-bold mb-8">项目成果</h2>
+
+                    
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        <!-- 成果1 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-cogs text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">功能闭环</h3>
+
+                            <p class="text-gray-600">
+
+                                完整交付四大核心功能模块：AI手语识别翻译、语音文字双向互转、可视化对话界面、一键SOS紧急定位报警，形成从日常沟通到安全守护的功能闭环。
+
+                            </p>
+
+                        </div>
+
+                        
+
+                        <!-- 成果2 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.2s;">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-heart text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">社会价值</h3>
+
+                            <p class="text-gray-600">
+
+                                以"沟通平权"为使命，兼顾青少年至老年全年龄段听障用户使用习惯，通过极简交互与亲肤美学降低社会融入门槛，在科技普惠与人文关怀之间建立情感纽带。
+
+                            </p>
+
+                        </div>
+
+                        
+
+                        <!-- 成果3 -->
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm fade-in" style="transition-delay: 0.4s;">
+
+                            <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+
+                                <i class="fa fa-trophy text-accent text-xl"></i>
+
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-2">其他成果</h3>
+
+                            <p class="text-gray-600">
+
+                                完成产品全链路设计交付，涵盖用户研究、工业设计、CMF开发及交互原型。外形手板模型经20位听障用户实测验证，佩戴舒适度与操作直观性获得高度认可。设计方法论沉淀为无障碍产品设计框架，为后续助残类硬件产品提供可复用范式。
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- 相关项目 -->
+
+        <section class="py-12">
+
+            <div class="container mx-auto px-4">
+
+                <h2 class="text-2xl font-bold mb-10 text-center">相关项目</h2>
+
+                
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+                    <!-- 相关项目1 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/渲染.268.jpg" alt="模块化康复矫形护具" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">模块化康复矫形护具</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">覆盖康复全周期的模块化可调式系统，打通医院与居家场景。（医疗健康 / 数字化服务）</p>
+
+                            <a href="work2.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <!-- 相关项目2 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.2s;">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/机器人.jpg" alt="全地形救援探索机器人" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">全地形救援探索机器人</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">轮足复合式越障系统，融合四足灵活与轮式高效，适应灾后废墟。</p>
+
+                            <a href="work3.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                    
+
+                    <!-- 相关项目3 -->
+
+                    <div class="work-card bg-white rounded-lg overflow-hidden shadow-sm group fade-in" style="transition-delay: 0.4s;">
+
+                        <div class="relative overflow-hidden">
+
+                            <img src="../images/露营灯.jpg" alt="多功能AI露营灯" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+
+                        </div>
+
+                        <div class="p-4">
+
+                            <h3 class="font-semibold mb-1">多功能AI露营灯</h3>
+
+                            <p class="text-gray-600 text-sm mb-3">集照明、驱蚊、AI值守于一体，定义年轻群体"轻量化露营"新方式。</p>
+
+                            <a href="work6.html" class="text-accent text-sm font-medium hover:underline">查看项目</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+
+                <!-- 返回作品列表按钮 -->
+
+                <div class="text-center mt-12">
+
+                    <a href="../index.html#works" class="inline-flex items-center px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition duration-300">
+
+                        返回全部作品
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- 页脚 -->
+
+    <footer class="py-12 bg-black text-white">
+
+        <div class="container mx-auto px-4">
+
+            <div class="flex flex-col md:flex-row justify-between items-center">
+
+                <div class="mb-6 md:mb-0">
+
+                    <h3 class="text-2xl font-bold">陈坠玉</h3>
+
+                    <p class="text-gray-400 mt-2">在硬件与服务的交汇处，构建兼具功能落地性与情感温度的实体产品体验。</p>
+
+                </div>
+
+                
+
+                <div class="flex space-x-6">
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-behance text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-dribbble text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-instagram text-xl"></i>
+
+                    </a>
+
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+
+                        <i class="fa fa-linkedin text-xl"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+
+                <p>© 2025 陈坠玉. 保留所有权利。</p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- 图片查看器 -->
+
+    <div id="image-viewer" class="image-viewer">
+
+        <span class="image-viewer-close" onclick="closeImageViewer()">×</span>
+
+        <img id="viewer-image" src="" alt="查看大图" loading="lazy">
+
+    </div>
+
+
+
+    <script>
+
+        // 页面加载完成后执行
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // 移动端菜单切换
+
+            const menuToggle = document.getElementById('menu-toggle');
+
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            
+
+            menuToggle.addEventListener('click', function() {
+
+                mobileMenu.classList.toggle('hidden');
+
+            });
+
+            
+
+            // 导航栏滚动效果
+
+            const navbar = document.getElementById('navbar');
+
+            window.addEventListener('scroll', function() {
+
+                if (window.scrollY > 50) {
+
+                    navbar.classList.add('bg-white', 'shadow-md');
+
+                    navbar.classList.remove('bg-opacity-95');
+
+                } else {
+
+                    navbar.classList.remove('shadow-md');
+
+                    navbar.classList.add('bg-opacity-95');
+
+                }
+
+            });
+
+            
+
+            // 淡入动画
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            
+
+            const fadeInOnScroll = function() {
+
+                fadeElements.forEach(element => {
+
+                    const elementTop = element.getBoundingClientRect().top;
+
+                    const windowHeight = window.innerHeight;
+
+                    
+
+                    if (elementTop < windowHeight - 100) {
+
+                        element.classList.add('active');
+
+                    }
+
+                });
+
+            };
+
+            
+
+            // 初始检查
+
+            fadeInOnScroll();
+
+            
+
+            // 滚动时检查
+
+            window.addEventListener('scroll', fadeInOnScroll);
+
+            
+
+            // 使用 GSAP 添加更复杂的动画
+
+            if (typeof gsap !== 'undefined') {
+
+                // 标题和简介动画
+
+                gsap.from('section:first-of-type h1', {
+
+                    opacity: 0,
+
+                    y: 50,
+
+                    duration: 1,
+
+                    delay: 0.2
+
+                });
+
+                
+
+                gsap.from('section:first-of-type .flex', {
+
+                    opacity: 0,
+
+                    y: 30,
+
+                    duration: 1,
+
+                    delay: 0.5
+
+                });
+
+                
+
+                gsap.from('section:first-of-type p', {
+
+                    opacity: 0,
+
+                    y: 20,
+
+                    duration: 1,
+
+                    delay: 0.8
+
+                });
+
+                
+
+                // 主要图片动画
+
+                gsap.fromTo('section:nth-of-type(2) img', 
+                    { opacity: 0, scale: 0.9 },
+                    { opacity: 1, scale: 1, duration: 1, delay: 1 }
+                );
+
+            }
+
+        });
+
+        
+
+        // 图片查看器功能
+
+        function openImageViewer(imageUrl) {
+
+            const viewer = document.getElementById('image-viewer');
+
+            const viewerImage = document.getElementById('viewer-image');
+
+            
+
+            viewerImage.src = imageUrl;
+
+            viewer.classList.add('active');
+
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+
+        }
+
+        
+
+        function closeImageViewer() {
+
+            const viewer = document.getElementById('image-viewer');
+
+            viewer.classList.remove('active');
+
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+
+        }
+
+        
+
+        // 点击图片查看器背景关闭
+
+        document.getElementById('image-viewer').addEventListener('click', function(e) {
+
+            if (e.target === this) {
+
+                closeImageViewer();
+
+            }
+
+        });
+
+        
+
+        // 按ESC键关闭图片查看器
+
+        document.addEventListener('keydown', function(e) {
+
+            if (e.key === 'Escape') {
+
+                closeImageViewer();
+
+            }
+
+        });
+
+    </script>
+
+
+
+
+
+</body></html>
+
