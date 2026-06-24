@@ -2232,5 +2232,23 @@
             });
         }, 3500);
 {% endraw %}    </script>
+
+
+    <script>
+    function openImageViewer(src) {
+        var v = document.getElementById('image-viewer');
+        if (!v) return;
+        v.querySelector('img').src = src;
+        v.classList.add('active');
+        v.style.display = 'flex';
+    }
+    function closeImageViewer() {
+        var v = document.getElementById('image-viewer');
+        if (!v) return;
+        v.classList.remove('active');
+        v.style.display = 'none';
+    }
+    </script>
 </body></html>
+
 
