@@ -648,17 +648,24 @@
                     e.preventDefault();
                     
                     // 获取表单数据
-                    const formData = new FormData(contactForm);
-                    const formDataObject = {};
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const subject = document.getElementById('subject').value.trim();
+                    const message = document.getElementById('message').value.trim();
                     
-                    formData.forEach((value, key) => {
-                        formDataObject[key] = value;
-                    });
+                    // 拼接 mailto 链接
+                    const lines = [];
+                    lines.push('姓名：' + (name || '未填写'));
+                    lines.push('邮箱：' + (email || '未填写'));
+                    lines.push('');
+                    lines.push('留言内容：');
+                    lines.push(message || '无');
+                    const mailBody = encodeURIComponent(lines.join('\n'));
+                    const mailSubject = encodeURIComponent('作品集留言：' + (subject || '无主题'));
+                    const mailto = 'mailto:168658372@qq.com?subject=' + mailSubject + '&body=' + mailBody;
                     
-                    // 在实际应用中，这里会发送数据到服务器
-                    // 这里仅做演示，显示提交成功消息
-                    alert('消息已成功发送！');
-                    contactForm.reset();
+                    // 打开邮件客户端
+                    window.location.href = mailto;
                 });
             }
         });
