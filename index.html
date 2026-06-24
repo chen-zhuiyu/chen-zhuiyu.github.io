@@ -695,5 +695,5 @@
 
 
 (function(){var imgs=document.querySelectorAll('img');var total=imgs.length;var loaded=0;function update(){loaded++;var p=Math.round(loaded/total*100);document.getElementById('loading-bar').style.width=p+'%';document.getElementById('loading-percent').textContent=p+'%';if(p>=100){var o=document.getElementById('loading-overlay');o.style.opacity='0';setTimeout(function(){o.style.display='none'},400)}}if(total===0){update()}else{imgs.forEach(function(img){if(img.complete){update()}else{img.addEventListener('load',update);img.addEventListener('error',update)}})}})();
-setTimeout(function(){var o=document.getElementById('loading-overlay');if(o&&o.style.display!=='none'){o.style.opacity='0';setTimeout(function(){o.style.display='none'},400)}},5000);
+setTimeout(function(){var o=document.getElementById('loading-overlay');if(o&&o.style.display!=='none'){o.style.opacity='0';setTimeout(function(){o.style.display='none'},400)}},3000);
 </body></html>
